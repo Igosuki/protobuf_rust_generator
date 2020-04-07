@@ -8,4 +8,4 @@ edition = "2018"
 
 [dependencies]
 clap = "2.33.0"
-protoc-rust = { git = "https://github.com/stepancheg/rust-protobuf" }
+protoc-rust = "2.12.0"
