@@ -38,13 +38,14 @@ fn main() {
     let includes: Vec<&str> = parent_dirs.iter().map(|p| p.to_str().unwrap()).collect();
     let out_dir = matches.value_of("out-dir").unwrap();
     fs::create_dir_all(out_dir).unwrap();
-    let mut args = protoc_rust::Args::new();
-    args.out_dir(out_dir);
-    args.inputs(input.clone());
-    args.includes(includes);
-    args.customize(Customize {
-        serde_derive: Some(true),
-        ..Default::default()
-    });
-    args.run().expect("protoc");
+    let mut args = protoc_rust::Args {
+        out_dir,
+        input: &input,
+        includes: &includes,
+        customize: Customize {
+            serde_derive: Some(true),
+            ..Default::default()
+        }
+    };
+    protoc_rust::run(args).expect("protoc");
 }
